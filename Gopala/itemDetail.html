@@ -31,7 +31,7 @@
         padding: 10px;
       }
       img {
-        width: 100%;
+        width: 30%;
       }
       #disdv {
         padding: 10px;
@@ -215,67 +215,82 @@
   </body>
 </html>
 <script type="module">
-  import { data } from "../Srinivas Code/JS/items_data.js";
+  // import { data } from "../Srinivas Code/JS/items_data.js";
 
-  let id = JSON.parse(localStorage.getItem("itemsId"));
+  const Data = "http://localhost:2222/electronics"
 
-  let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
-  let Select_data = data.filter(function (item) {
-    return item.id == id;
-  });
+  async function fetchData(){
+
+   const res = await fetch(Data)
+
+   var data = await res.json()
+     //console.log(data);
+     Getdata(data);
+  }
+ 
+
+  // let id = JSON.parse(localStorage.getItem("itemsId"));
+  let id = "61e7cfcc4a116f63f00c2af3"
+
+  // let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
+
+  // let Select_data = data.filter(function (item) {
+  //   return item._id == id;
+  // });
 
   let main = document.getElementById("main");
   let BtnDiv = document.createElement("div");
   BtnDiv.id = "btndv";
-  function Getdata() {
+
+  function Getdata(data) {
     // main.innerHTML = "";
     let Disdiv = document.getElementById("disdv");
     let imgDiv = document.getElementById("imgdv");
 
-    Select_data.forEach((prodt) => {
+    data.forEach((prodt) => {
       let img = document.createElement("img");
-      img.src = prodt.img;
+      img.src = prodt.image;
 
-      let name = document.createElement("h2");
-      name.innerText = prodt.name;
+      // let name = document.createElement("h2");
+      // name.innerText = prodt.name;
 
-      let price = document.createElement("h3");
-      price.innerHTML = `₹  ${prodt.price} <img id="logo" src= ../Mainpage-images/assured.png>`;
+      // let price = document.createElement("h3");
+      // price.innerHTML = `₹  ${prodt.price} <img id="logo" src= ../Mainpage-images/assured.png>`;
 
-      let rating = document.createElement("h4");
-      rating.innerHTML = prodt.rating + " ★";
-      rating.id = "rating";
+      // let rating = document.createElement("h4");
+      // rating.innerHTML = prodt.rating + " ★";
+      // rating.id = "rating";
 
-      let d1 = document.createElement("p");
-      d1.innerText = "• " + prodt.d1;
+      // let d1 = document.createElement("p");
+      // d1.innerText = "• " + prodt.d1;
 
-      let d2 = document.createElement("p");
-      d2.innerText = "• " + prodt.d2;
+      // let d2 = document.createElement("p");
+      // d2.innerText = "• " + prodt.d2;
 
-      let d3 = document.createElement("p");
-      d3.innerText = "• " + prodt.d3;
+      // let d3 = document.createElement("p");
+      // d3.innerText = "• " + prodt.d3;
 
-      let d4 = document.createElement("p");
-      d4.innerText = "• " + prodt.d4;
+      // let d4 = document.createElement("p");
+      // d4.innerText = "• " + prodt.d4;
 
-      let d5 = document.createElement("p");
-      d5.innerText = "• " + prodt.d5;
+      // let d5 = document.createElement("p");
+      // d5.innerText = "• " + prodt.d5;
 
-      let d6 = document.createElement("p");
-      d6.innerText = "• " + prodt.d6;
+      // let d6 = document.createElement("p");
+      // d6.innerText = "• " + prodt.d6;
 
-      let AddCartbtn = document.createElement("button");
-      AddCartbtn.innerText = "Add to cart";
-      AddCartbtn.id = "AdBTn";
+      // let AddCartbtn = document.createElement("button");
+      // AddCartbtn.innerText = "Add to cart";
+      // AddCartbtn.id = "AdBTn";
 
-      let Buybtn = document.createElement("button");
-      Buybtn.innerText = "Buy Now";
-      Buybtn.id = "ByBTn";
+      // let Buybtn = document.createElement("button");
+      // Buybtn.innerText = "Buy Now";
+      // Buybtn.id = "ByBTn";
 
-      imgDiv.append(img, BtnDiv);
-      Disdiv.append(name, rating, price, d1, d2, d3, d4, d5, d6);
-      BtnDiv.append(AddCartbtn, Buybtn);
-      main.append(imgDiv, Disdiv);
+      imgDiv.append(img, BtnDiv);  ///
+      // Disdiv.append(name, rating, price, d1, d2, d3, d4, d5, d6);
+      // BtnDiv.append(AddCartbtn, Buybtn);
+      // main.append(imgDiv, Disdiv);
 
       AddCartbtn.addEventListener("click", () => {
         let mili = false;
@@ -295,7 +310,7 @@
       });
     });
   }
-  Getdata();
+  fetchData()
 </script>
 
 <script type="module">
