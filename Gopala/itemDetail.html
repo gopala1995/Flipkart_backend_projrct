@@ -31,7 +31,7 @@
         padding: 10px;
       }
       img {
-        width: 30%;
+        width: 45%;
       }
       #disdv {
         padding: 10px;
@@ -230,13 +230,14 @@
  
 
   // let id = JSON.parse(localStorage.getItem("itemsId"));
-  let id = "61e7cfcc4a116f63f00c2af3"
+  let _id = "61e7cfcc4a116f63f00c2af3"
 
   // let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
 
-  // let Select_data = data.filter(function (item) {
-  //   return item._id == id;
-  // });
+  let Select_data = data.filter((items)=> {
+    return items._id == _id;
+    
+  });
 
   let main = document.getElementById("main");
   let BtnDiv = document.createElement("div");
@@ -247,7 +248,7 @@
     let Disdiv = document.getElementById("disdv");
     let imgDiv = document.getElementById("imgdv");
 
-    data.forEach((prodt) => {
+       data.forEach((prodt) => {
       let img = document.createElement("img");
       img.src = prodt.image;
 
@@ -279,13 +280,13 @@
       // let d6 = document.createElement("p");
       // d6.innerText = "• " + prodt.d6;
 
-      // let AddCartbtn = document.createElement("button");
-      // AddCartbtn.innerText = "Add to cart";
-      // AddCartbtn.id = "AdBTn";
+      let AddCartbtn = document.createElement("button");
+      AddCartbtn.innerText = "Add to cart";
+      AddCartbtn.id = "AdBTn";
 
-      // let Buybtn = document.createElement("button");
-      // Buybtn.innerText = "Buy Now";
-      // Buybtn.id = "ByBTn";
+      let Buybtn = document.createElement("button");
+      Buybtn.innerText = "Buy Now";
+      Buybtn.id = "ByBTn";
 
       imgDiv.append(img, BtnDiv);  ///
       // Disdiv.append(name, rating, price, d1, d2, d3, d4, d5, d6);
