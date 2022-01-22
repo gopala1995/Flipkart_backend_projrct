@@ -154,14 +154,31 @@
   
 </script>
 <script type="module">
-  import {data} from "../Srinivas Code/JS/items_data.js"
-  let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
+  // import {data} from "../Srinivas Code/JS/items_data.js"
+   // let _id = "61e7cfcc4a116f63f00c2af3"
+   let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
+  //  console.log(cart_ids_arr);
+   let Data = `http://localhost:2222/electronics/${cart_ids_arr}`
+  
+   
+
+  async function fetchData(){
+
+   const res = await fetch(Data)
+
+   var cart_ids_arr = await res.json()
+     console.log(cart_ids_arr);
+     getLocalStorage(cart_ids_arr);
+  }
+
+ 
+
   let left = document.querySelector(".left");
   let sum = 0;
   let price = document.getElementById("price");
   let amount = document.getElementById("amount");
   let dl = document.getElementById("dl");
-  getLocalStorage(cart_ids_arr);
+ 
 
   function getLocalStorage(arr) {
     left.innerHTML = "";
@@ -170,10 +187,11 @@
     dl.innerText = "";
     sum = 0;
 
-    arr.map((id) => {
+    arr.map((_id) => {
       let id_data = data.filter((item) => {
-        return id == item.id;
+        return _id == item._id;
       });
+      console.log(id_data);
       sum += id_data[0].price;
       price.innerText = "₹" + sum;
       let total=sum+135;
@@ -186,15 +204,18 @@
 
   function dispplay_id_data(id_data) {
     id_data.map((e) => {
+      console.log(id_data);
       let flex_box = document.createElement("div");
       flex_box.className = "flex-box";
+
       let imgdiv = document.createElement("div");
       imgdiv.className = "img-div";
+
       let descdiv = document.createElement("div");
       descdiv.className = "desc-div";
 
-      imgdiv.innerHTML = `<img src=${e.img}>`;
-      descdiv.innerHTML = `<h3>${e.name}</h3>
+      imgdiv.innerHTML = `<img src=${e.image}>`;
+      descdiv.innerHTML = `<h3>${e.title}</h3>
         <h3>₹${e.price}<img src=assured.png><h2>`;
       let p = e.price;
       // Quantity Inc Dec Buttons
@@ -260,4 +281,5 @@
       left.append(flex_box);
     });
   }
+  fetchData()
 </script>

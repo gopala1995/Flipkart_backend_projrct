@@ -31,7 +31,7 @@
         padding: 10px;
       }
       img {
-        width: 45%;
+        width: 90%;
       }
       #disdv {
         padding: 10px;
@@ -215,29 +215,31 @@
   </body>
 </html>
 <script type="module">
-  // import { data } from "../Srinivas Code/JS/items_data.js";
+  //  let _id = JSON.parse(localStorage.getItem("itemsId"));
 
-  const Data = "http://localhost:2222/electronics"
+  let _id = "61e7cfcc4a116f63f00c2af5"
+
+  const Data = `http://localhost:2222/electronics/${_id}`
 
   async function fetchData(){
 
    const res = await fetch(Data)
 
    var data = await res.json()
-     //console.log(data);
+     console.log(data);
      Getdata(data);
   }
+  
+
+ 
  
 
-  // let id = JSON.parse(localStorage.getItem("itemsId"));
-  let _id = "61e7cfcc4a116f63f00c2af3"
+  let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
 
-  // let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
-
-  let Select_data = data.filter((items)=> {
-    return items._id == _id;
+  // let Select_data = data.filter((items)=> {
+  //   return items._id == _id;
     
-  });
+  // });
 
   let main = document.getElementById("main");
   let BtnDiv = document.createElement("div");
@@ -248,37 +250,25 @@
     let Disdiv = document.getElementById("disdv");
     let imgDiv = document.getElementById("imgdv");
 
-       data.forEach((prodt) => {
+      //  data.forEach((prodt) => {
+      
       let img = document.createElement("img");
-      img.src = prodt.image;
+      img.src = data.image;
 
-      // let name = document.createElement("h2");
-      // name.innerText = prodt.name;
+      let name = document.createElement("h2");
+      name.innerText = data.title;
 
-      // let price = document.createElement("h3");
-      // price.innerHTML = `₹  ${prodt.price} <img id="logo" src= ../Mainpage-images/assured.png>`;
+      let price = document.createElement("h3");
+      price.innerHTML = ` Price: ₹${data.price*100} <img id="logo" src= ../Mainpage-images/assured.png>`;
 
-      // let rating = document.createElement("h4");
-      // rating.innerHTML = prodt.rating + " ★";
-      // rating.id = "rating";
+      let rating = document.createElement("h4");
+      rating.innerHTML = data.rating + " ★";
+      rating.id = "rating";
 
-      // let d1 = document.createElement("p");
-      // d1.innerText = "• " + prodt.d1;
+      let d1 = document.createElement("p");
+      d1.innerText = "• " + data.description;
 
-      // let d2 = document.createElement("p");
-      // d2.innerText = "• " + prodt.d2;
-
-      // let d3 = document.createElement("p");
-      // d3.innerText = "• " + prodt.d3;
-
-      // let d4 = document.createElement("p");
-      // d4.innerText = "• " + prodt.d4;
-
-      // let d5 = document.createElement("p");
-      // d5.innerText = "• " + prodt.d5;
-
-      // let d6 = document.createElement("p");
-      // d6.innerText = "• " + prodt.d6;
+     
 
       let AddCartbtn = document.createElement("button");
       AddCartbtn.innerText = "Add to cart";
@@ -289,28 +279,28 @@
       Buybtn.id = "ByBTn";
 
       imgDiv.append(img, BtnDiv);  ///
-      // Disdiv.append(name, rating, price, d1, d2, d3, d4, d5, d6);
-      // BtnDiv.append(AddCartbtn, Buybtn);
-      // main.append(imgDiv, Disdiv);
+      Disdiv.append(name,rating,price,d1);//,, price, d1, d2, d3, d4, d5, d6
+      BtnDiv.append(AddCartbtn, Buybtn);
+      main.append(imgDiv,Disdiv);//
 
       AddCartbtn.addEventListener("click", () => {
         let mili = false;
         cart_ids_arr.map((e) => {
-          if (e == id) {
+          if (e == _id) {
             alert("Item is already in cart");
             mili = true;
           }
         });
         if (!mili) {
-          cart_ids_arr.push(id);
+          cart_ids_arr.push(_id);
           localStorage.setItem("itemsids", JSON.stringify(cart_ids_arr));
         }
         let item_cart = document.getElementById("cart-item");
         let len = cart_ids_arr.length;
         item_cart.innerText = len;
       });
-    });
-  }
+    //  });
+   }
   fetchData()
 </script>
 
