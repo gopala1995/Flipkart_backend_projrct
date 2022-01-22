@@ -155,8 +155,8 @@
 </script>
 <script type="module">
   // import {data} from "../Srinivas Code/JS/items_data.js"
-   // let _id = "61e7cfcc4a116f63f00c2af3"
-   let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
+    let cart_ids_arr = "61e7cfcc4a116f63f00c2af3"
+   //let cart_ids_arr = JSON.parse(localStorage.getItem("itemsids")) || [];
   //  console.log(cart_ids_arr);
    let Data = `http://localhost:2222/electronics/${cart_ids_arr}`
   
@@ -167,7 +167,9 @@
    const res = await fetch(Data)
 
    var cart_ids_arr = await res.json()
+
      console.log(cart_ids_arr);
+
      getLocalStorage(cart_ids_arr);
   }
 
@@ -187,10 +189,10 @@
     dl.innerText = "";
     sum = 0;
 
-    arr.map((_id) => {
-      let id_data = data.filter((item) => {
-        return _id == item._id;
-      });
+    arr.map((id_data) => {
+      // let id_data = data.filter((item) => {
+      //   return _id == item._id;
+      // });
       console.log(id_data);
       sum += id_data[0].price;
       price.innerText = "₹" + sum;
